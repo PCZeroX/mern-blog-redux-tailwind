@@ -1,70 +1,212 @@
-# Getting Started with Create React App
+```TS
+npm install react-router-dom @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/react-fontawesome @reduxjs/toolkit react-redux react-spinners jwt-decode
+```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```TS
+npm install -D autoprefixer postcss tailwindcss
+```
 
-## Available Scripts
+```TS
+npx tailwind init -p
+```
 
-In the project directory, you can run:
+```TS
+npx tailwindcss -i ./public/css/tailwind.css -o ./public/css/styles.css --watch
+```
+`Header.js`
 
-### `npm start`
+```TS
+// import { useEffect } from "react";
+// import { useNavigate, Link, useLocation } from "react-router-dom";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import {
+//   faRightFromBracket,
+// 	faFileCirclePlus,
+// 	faFilePen,
+// 	faUserGear,
+// 	faUserPlus,
+// 	faHome,
+// } from "@fortawesome/free-solid-svg-icons";
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+import { Link } from "react-router-dom";
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+// const POSTS_REGEX = /^\/notes(\/)?$/;
+// const USERS_REGEX = /^\/users(\/)?$/;
 
-### `npm test`
+const Header = () => {
+	// const { username, isManager, isAdmin } = useAuth();
+	// const [sendLogout, { isLoading, isSuccess, isError, error }] = useSendLogoutMutation();
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+	// const navigate = useNavigate();
+	// const { pathname } = useLocation();
 
-### `npm run build`
+	// useEffect(() => {
+	// 	if (isSuccess) navigate("/");
+	// }, [isSuccess, navigate]);
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+	// const onGoHomeClicked = () => navigate("/profile");
+	// const onNewPostClicked = () => navigate("/posts/new");
+	// const onNewUserClicked = () => navigate("/users/new");
+	// const onPostsClicked = () => navigate("/posts");
+	// const onUsersClicked = () => navigate("/users");
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+	// let goHomeButton = null;
+	// if (pathname !== "/profile") {
+	// 	goHomeButton = (
+	// 		<button
+	// 			className="flex items-center"
+	// 			title="Profile"
+	// 			onClick={onGoHomeClicked}
+	// 		>
+	// 			<FontAwesomeIcon
+	// 				className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+	// 				icon={faHome}
+	// 			/>
+	// 		</button>
+	// 	);
+	// }
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+	// let newPostButton = null;
+	// if (POSTS_REGEX.test(pathname)) {
+	// 	newPostButton = (
+	// 		<button
+	// 			className="flex items-center"
+	// 			title="New Note"
+	// 			onClick={onNewPostClicked}
+	// 		>
+	// 			<FontAwesomeIcon
+	// 				className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+	// 				icon={faFileCirclePlus}
+	// 			/>
+	// 		</button>
+	// 	);
+	// }
 
-### `npm run eject`
+	// let newUserButton = null;
+	// if (USERS_REGEX.test(pathname)) {
+	// 	newUserButton = (
+	// 		<button
+	// 			className="flex items-center"
+	// 			title="New User"
+	// 			onClick={onNewUserClicked}
+	// 		>
+	// 			<FontAwesomeIcon
+	// 				className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+	// 				icon={faUserPlus}
+	// 			/>
+	// 		</button>
+	// 	);
+	// }
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+	// let usersButton = null;
+	// if (isManager || isAdmin) {
+	// 	if (!USERS_REGEX.test(pathname) && pathname.includes("/")) {
+	// 		usersButton = (
+	// 			<button
+	// 				className="flex items-center"
+	// 				title="Users"
+	// 				onClick={onUsersClicked}
+	// 			>
+	// 				<FontAwesomeIcon
+	// 					className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+	// 					icon={faUserGear}
+	// 				/>
+	// 			</button>
+	// 		);
+	// 	}
+	// }
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+	// let postsButton = null;
+	// if (!POSTS_REGEX.test(pathname) && pathname.includes("/")) {
+	// 	postsButton = (
+	// 		<button
+	// 			className="flex items-center"
+	// 			title="Notes"
+	// 			onClick={onPostsClicked}
+	// 		>
+	// 			<FontAwesomeIcon
+	// 				className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+	// 				icon={faFilePen}
+	// 			/>
+	// 		</button>
+	// 	);
+	// }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+	// const logoutButton = (
+	// 	<button className="flex items-center" title="Logout" onClick={sendLogout}>
+	// 		<FontAwesomeIcon
+	// 			className="w-6 h-6 duration-500 hover:scale-125 hover:text-red-500"
+	// 			icon={faRightFromBracket}
+	// 		/>
+	// 	</button>
+	// );
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+	// let buttonContent;
+	// if (isLoading) {
+	// 	buttonContent = <Spinner />;
+	// } else {
+	// 	buttonContent = (
+	// 		<>
+	// 			{goHomeButton}
+	// 			{newPostButton}
+	// 			{postsButton}
+	// 			{newUserButton}
+	// 			{usersButton}
+	// 			{logoutButton}
+	// 		</>
+	// 	);
+	// }
 
-## Learn More
+	return (
+		<header className="bg-gradient-to-r from-gray-900 to-gray-800 border-b-gray-500/25 border-b sticky top-0 z-10 col-span-4">
+			<div className="max-w-7xl mx-auto">
+				<nav
+					className={`flex justify-between items-center h-14 mx-4 xl:mx-0`}
+				>
+					<Link to="/">
+						<img
+							src="/img/react.svg"
+							alt="React"
+							className="h-8"
+						/>
+					</Link>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+					{/* {username ? (
+						<ul className="flex gap-8">{buttonContent}</ul>
+					) : (
+						<ul className="flex gap-4">
+							<li>
+								<Link className="hover:text-cyan-400 duration-300" to="/login">
+									Sign In
+								</Link>
+							</li>
+						</ul>
+					)} */}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+					<ul className="flex gap-4">
+						<li>
+							<Link
+								className="hover:text-cyan-400 duration-300"
+								to="/login"
+							>
+								Sign In
+							</Link>
+						</li>
+					</ul>
 
-### Code Splitting
+					<Link to="/">
+						<img
+							src="/img/Redux.svg"
+							alt="Redux"
+							className="h-8"
+						/>
+					</Link>
+				</nav>
+			</div>
+		</header>
+	);
+};
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+export default Header;
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
