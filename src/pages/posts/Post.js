@@ -36,10 +36,10 @@ const Post = ({ postId }) => {
 						<span className="text-red-500">Open</span>
 					)}
 				</td>
-				<td className="p-4 border border-slate-700">
+				<td className="p-4 border border-slate-700 xl:table-cell hidden">
 					{created}
 				</td>
-				<td className="p-4 border border-slate-700">
+				<td className="p-4 border border-slate-700 xl:table-cell hidden">
 					{updated}
 				</td>
 				<td className="p-4 border border-slate-700">

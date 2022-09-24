@@ -1,4 +1,4 @@
-import { RingLoader } from "react-spinners";
+import { RingLoader as Loader } from "react-spinners";
 import { useGetUsersQuery } from "../../features/users/usersApiSlice";
 
 import User from "./User";
@@ -10,14 +10,18 @@ const UsersList = () => {
 		isSuccess,
 		isError,
 		error,
-	} = useGetUsersQuery();
+	} = useGetUsersQuery("usersList", {
+		pollingInterval: 60000,
+		refetchOnFocus: true,
+		refetchOnMountOrArgChange: true,
+	});
 
 	let content;
 
 	if (isLoading)
 		content = (
 			<div className="flex justify-center items-center">
-				<RingLoader color={"#FFF"} />
+				<Loader color="#33F0F9" />
 			</div>
 		);
 

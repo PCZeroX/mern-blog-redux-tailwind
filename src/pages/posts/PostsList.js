@@ -1,4 +1,4 @@
-import { RingLoader } from "react-spinners";
+import { RingLoader as Loader } from "react-spinners";
 import { useGetPostsQuery } from "../../features/posts/postsApiSlice";
 
 import Post from "./Post";
@@ -10,14 +10,18 @@ const PostsList = () => {
 		isSuccess,
 		isError,
 		error,
-	} = useGetPostsQuery();
+	} = useGetPostsQuery("postsList", {
+		pollingInterval: 60000,
+		refetchOnFocus: true,
+		refetchOnMountOrArgChange: true,
+	});
 
 	let content;
 
 	if (isLoading) {
 		content = (
 			<div className="flex justify-center items-center">
-				<RingLoader color={"#FFF"} />
+				<Loader color="#33F0F9" />
 			</div>
 		);
 	}
@@ -53,13 +57,13 @@ const PostsList = () => {
 						</th>
 						<th
 							scope="col"
-							className="p-4 border-2 border-slate-700"
+							className="p-4 border-2 border-slate-700 xl:table-cell hidden"
 						>
 							Created
 						</th>
 						<th
 							scope="col"
-							className="p-4 border-2 border-slate-700"
+							className="p-4 border-2 border-slate-700 xl:table-cell hidden"
 						>
 							Updated
 						</th>

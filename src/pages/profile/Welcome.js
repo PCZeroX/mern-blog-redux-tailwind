@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Profile = () => {
 	const date = new Date();
@@ -7,10 +8,16 @@ const Profile = () => {
 		timeStyle: "long",
 	}).format(date);
 
+	const { username } = useAuth();
+
 	return (
 		<section className="max-w-xl mx-auto space-y-4 md:space-y-8">
 			<h1 className="text-4xl font-bold text-center">
-				Welcome 🦄!
+				Welcome
+				<span className="text-green-400 capitalize">
+					{` ${username} `}
+				</span>
+				🦄!
 			</h1>
 
 			<p className="text-center">{today}</p>

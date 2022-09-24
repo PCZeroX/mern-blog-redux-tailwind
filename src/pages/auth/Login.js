@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RingLoader } from "react-spinners";
+import { RingLoader as Loader } from "react-spinners";
 
 import { useLoginMutation } from "../../features/auth/authApiSlice";
 import { setCredentials } from "../../features/auth/authSlice";
@@ -30,6 +30,7 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
 		try {
 			const { accessToken } = await login({
 				username,
@@ -43,6 +44,7 @@ const Login = () => {
 
 			navigate("/profile");
 		} catch (err) {
+			console.log("err:", err);
 			if (!err.status) {
 				setErrMsg("No Server Response");
 			} else if (err.status === 400) {
@@ -66,7 +68,7 @@ const Login = () => {
 	if (isLoading) {
 		return (
 			<div className="flex justify-center items-center">
-				<RingLoader color={"#FFF"} />
+				<Loader color="#33F0F9" />
 			</div>
 		);
 	}
@@ -76,7 +78,7 @@ const Login = () => {
 		: "";
 
 	return (
-		<section className="max-w-xl mx-auto space-y-4">
+		<section className="max-w-xl mx-auto space-y-8">
 			<h1 className=" text-2xl xl:text-4xl font-bold text-center">
 				Login
 			</h1>
