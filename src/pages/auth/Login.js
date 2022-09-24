@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RingLoader } from "react-spinners";
 
-import { useLoginMutation } from "../features/auth/authApiSlice";
-import { setCredentials } from "../features/auth/authSlice";
+import { useLoginMutation } from "../../features/auth/authApiSlice";
+import { setCredentials } from "../../features/auth/authSlice";
 
 const Login = () => {
 	const userRef = useRef();
@@ -65,7 +65,7 @@ const Login = () => {
 
 	if (isLoading) {
 		return (
-			<div className="grid place-content-center">
+			<div className="flex justify-center items-center">
 				<RingLoader color={"#FFF"} />
 			</div>
 		);
