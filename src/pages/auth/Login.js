@@ -6,6 +6,8 @@ import { RingLoader as Loader } from "react-spinners";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
 import { setCredentials } from "../../features/auth/authSlice";
 
+import usePersist from "../../hooks/usePersist";
+
 const Login = () => {
 	const userRef = useRef();
 	const errRef = useRef();
@@ -13,6 +15,8 @@ const Login = () => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [errMsg, setErrMsg] = useState("");
+
+	const [persist, setPersist] = usePersist();
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -64,6 +68,9 @@ const Login = () => {
 		setUsername(e.target.value);
 	const handlePasswordInput = (e) =>
 		setPassword(e.target.value);
+
+	// const handleToggle = () => setPersist((prev) => !prev);
+	const handleToggle = () => setPersist(true);
 
 	if (isLoading) {
 		return (
@@ -132,7 +139,7 @@ const Login = () => {
 					/>
 				</div>
 
-				<div>
+				<div className="hidden">
 					<label
 						htmlFor="persist"
 						className="text-xs xl:text-base inline-flex items-center gap-4 cursor-pointer select-none"
@@ -141,10 +148,10 @@ const Login = () => {
 							id="persist"
 							type="checkbox"
 							className="w-4 h-4 xl:w-6 xl:h-6 focus:outline-offset-4 accent-blue-600 focus:outline focus:outline-blue-500"
-							// onChange={handleToggle}
-							// checked={persist}
+							onChange={handleToggle}
+							checked={persist}
 						/>
-						Keep me logged in
+						Keep me persistent logged in
 					</label>
 				</div>
 

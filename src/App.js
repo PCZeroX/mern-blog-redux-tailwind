@@ -16,6 +16,7 @@ import NewPost from "./pages/posts/NewPost";
 import EditPost from "./pages/posts/EditPost";
 
 import Prefetch from "./features/auth/Prefetch";
+import PersistLogin from "./features/auth/PersistLogin";
 
 function App() {
 	return (
@@ -24,21 +25,23 @@ function App() {
 				<Route index element={<Home />} />
 				<Route path="login" element={<Login />} />
 
-				<Route element={<Prefetch />}>
-					<Route path="profile">
-						<Route index element={<Welcome />} />
-					</Route>
+				<Route element={<PersistLogin />}>
+					<Route element={<Prefetch />}>
+						<Route path="profile">
+							<Route index element={<Welcome />} />
+						</Route>
 
-					<Route path="users">
-						<Route index element={<UsersList />} />
-						<Route path="new" element={<NewUser />} />
-						<Route path=":id" element={<EditUser />} />
-					</Route>
+						<Route path="users">
+							<Route index element={<UsersList />} />
+							<Route path="new" element={<NewUser />} />
+							<Route path=":id" element={<EditUser />} />
+						</Route>
 
-					<Route path="posts">
-						<Route index element={<PostsList />} />
-						<Route path="new" element={<NewPost />} />
-						<Route path=":id" element={<EditPost />} />
+						<Route path="posts">
+							<Route index element={<PostsList />} />
+							<Route path="new" element={<NewPost />} />
+							<Route path=":id" element={<EditPost />} />
+						</Route>
 					</Route>
 				</Route>
 			</Route>

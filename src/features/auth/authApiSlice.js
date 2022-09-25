@@ -43,7 +43,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
 			) {
 				try {
 					const { data } = await queryFulfilled;
-					console.log("data:", data);
 					const { accessToken } = data;
 
 					dispatch(setCredentials({ accessToken }));
