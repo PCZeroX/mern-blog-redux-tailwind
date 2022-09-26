@@ -30,7 +30,7 @@ const PersistLogin = () => {
 
 					setTrueSuccess(true);
 				} catch (err) {
-					console.log("err:", err);
+					console.log("err: 🐼", err);
 				}
 			};
 
@@ -71,7 +71,7 @@ const PersistLogin = () => {
 	} else if (token && isUninitialized) {
 		//persist: yes, token: yes
 		console.log("token and uninit");
-		console.log(isUninitialized);
+		console.log("isUninitialized", isUninitialized);
 		content = <Outlet />;
 	}
 

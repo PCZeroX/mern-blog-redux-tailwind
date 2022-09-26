@@ -10,6 +10,7 @@ import {
 	useDeletePostMutation,
 	useUpdatePostMutation,
 } from "../../../features/posts/postsApiSlice";
+import useAuth from "../../../hooks/useAuth";
 
 const EditPostForm = ({ post, users }) => {
 	const [
@@ -30,6 +31,8 @@ const EditPostForm = ({ post, users }) => {
 			error: deleteError,
 		},
 	] = useDeletePostMutation();
+
+	const { isManager, isAdmin } = useAuth();
 
 	const [title, setTitle] = useState(post.title);
 	const [description, setDescription] = useState(
@@ -133,20 +136,20 @@ const EditPostForm = ({ post, users }) => {
 		"";
 
 	let deleteButton = null;
-	// if (isManager || isAdmin) {
-	deleteButton = (
-		<button
-			className="flex"
-			title="Delete"
-			onClick={onDeletePostClicked}
-		>
-			<FontAwesomeIcon
-				className="w-6 h-6 hover:scale-125 duration-500 hover:text-red-500"
-				icon={faTrashCan}
-			/>
-		</button>
-	);
-	// }
+	if (isManager || isAdmin) {
+		deleteButton = (
+			<button
+				className="flex"
+				title="Delete"
+				onClick={onDeletePostClicked}
+			>
+				<FontAwesomeIcon
+					className="w-6 h-6 hover:scale-125 duration-500 hover:text-red-500"
+					icon={faTrashCan}
+				/>
+			</button>
+		);
+	}
 
 	return (
 		<section className="max-w-2xl mx-auto space-y-8">

@@ -21,8 +21,7 @@ const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const [login, { isLoading, isError }] =
-		useLoginMutation();
+	const [login, { isLoading, isError }] = useLoginMutation();
 
 	useEffect(() => {
 		userRef.current.focus();
@@ -48,7 +47,7 @@ const Login = () => {
 
 			navigate("/profile");
 		} catch (err) {
-			console.log("err:", err);
+			console.log("err: 😈", err);
 			if (!err.status) {
 				setErrMsg("No Server Response");
 			} else if (err.status === 400) {
@@ -64,10 +63,8 @@ const Login = () => {
 		}
 	};
 
-	const handleUserInput = (e) =>
-		setUsername(e.target.value);
-	const handlePasswordInput = (e) =>
-		setPassword(e.target.value);
+	const handleUserInput = (e) => setUsername(e.target.value);
+	const handlePasswordInput = (e) => setPassword(e.target.value);
 
 	// const handleToggle = () => setPersist((prev) => !prev);
 	const handleToggle = () => setPersist(true);
@@ -80,36 +77,22 @@ const Login = () => {
 		);
 	}
 
-	const errClass = errMsg
-		? "bg-red-700 text-white py-2 px-4"
-		: "";
+	const errClass = errMsg ? "bg-red-700 text-white py-2 px-4" : "";
 
 	return (
 		<section className="max-w-xl mx-auto space-y-8">
-			<h1 className=" text-2xl xl:text-4xl font-bold text-center">
-				Login
-			</h1>
+			<h1 className=" text-2xl xl:text-4xl font-bold text-center">Login</h1>
 			{isError ? (
 				<div className="flex justify-center mb-6">
-					<p
-						ref={errRef}
-						className={errClass}
-						aria-live="assertive"
-					>
+					<p ref={errRef} className={errClass} aria-live="assertive">
 						{errMsg}
 					</p>
 				</div>
 			) : null}
 
-			<form
-				className="p-8 bg-slate-900/75 space-y-8"
-				onSubmit={handleSubmit}
-			>
+			<form className="p-8 bg-slate-900/75 space-y-8" onSubmit={handleSubmit}>
 				<div className="flex flex-col space-y-4">
-					<label
-						className="text-sm xl:text-base"
-						htmlFor="username"
-					>
+					<label className="text-sm xl:text-base" htmlFor="username">
 						Username
 					</label>
 					<input
@@ -123,10 +106,7 @@ const Login = () => {
 						required
 					/>
 
-					<label
-						className="text-sm xl:text-base"
-						htmlFor="password"
-					>
+					<label className="text-sm xl:text-base" htmlFor="password">
 						Password
 					</label>
 					<input
@@ -142,8 +122,7 @@ const Login = () => {
 				<div className="hidden">
 					<label
 						htmlFor="persist"
-						className="text-xs xl:text-base inline-flex items-center gap-4 cursor-pointer select-none"
-					>
+						className="text-xs xl:text-base inline-flex items-center gap-4 cursor-pointer select-none">
 						<input
 							id="persist"
 							type="checkbox"

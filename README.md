@@ -13,3 +13,11 @@ npx tailwind init -p
 ```TS
 npx tailwindcss -i ./public/css/tailwind.css -o ./public/css/styles.css --watch
 ```
+
+```TS
+
+```
+
+```TS
+
+```

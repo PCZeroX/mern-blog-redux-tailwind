@@ -1,9 +1,13 @@
 import { RingLoader as Loader } from "react-spinners";
 import { useGetPostsQuery } from "../../features/posts/postsApiSlice";
 
+import useAuth from "../../hooks/useAuth";
+
 import Post from "./Post";
 
 const PostsList = () => {
+	const { username, isManager, isAdmin } = useAuth();
+
 	const {
 		data: posts,
 		isLoading,
@@ -37,13 +41,22 @@ const PostsList = () => {
 	}
 
 	if (isSuccess) {
-		const { ids } = posts;
+		const { ids, entities } = posts;
 
-		const tableContent = ids?.length
-			? ids.map((postId) => (
-					<Post key={postId} postId={postId} />
-			  ))
-			: null;
+		let filteredIds;
+		if (isManager || isAdmin) {
+			filteredIds = [...ids];
+		} else {
+			filteredIds = ids.filter(
+				(postId) => entities[postId].username === username
+			);
+		}
+
+		const tableContent =
+			ids?.length &&
+			filteredIds.map((postId) => (
+				<Post key={postId} postId={postId} />
+			));
 
 		content = (
 			<table className="w-full border-2 border-slate-700">

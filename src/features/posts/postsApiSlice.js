@@ -6,13 +6,11 @@ import {
 import { apiSlice } from "../../app/api/apiSlice";
 
 const postsAdapter = createEntityAdapter({
-	sortComparer: (a, b) => {
-		return a.completed === b.completed
-			? 0
-			: a.completed
+	sortComparer: (a, b) => a.isCompleted === b.isCompleted
+		? 0
+		: a.isCompleted
 			? 1
-			: -1;
-	},
+			: -1
 });
 
 const initialState = postsAdapter.getInitialState();
@@ -87,7 +85,6 @@ export const {
 	useUpdatePostMutation,
 	useDeletePostMutation,
 } = postsApiSlice;
-
 export const selectPostsResult =
 	postsApiSlice.endpoints.getPosts.select();
 
