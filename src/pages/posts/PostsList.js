@@ -2,6 +2,7 @@ import { RingLoader as Loader } from "react-spinners";
 import { useGetPostsQuery } from "../../features/posts/postsApiSlice";
 
 import useAuth from "../../hooks/useAuth";
+import useTitle from "../../hooks/useTitle";
 
 import Post from "./Post";
 
@@ -19,6 +20,8 @@ const PostsList = () => {
 		refetchOnFocus: true,
 		refetchOnMountOrArgChange: true,
 	});
+
+	useTitle(`Posts List | ${username}`);
 
 	let content;
 

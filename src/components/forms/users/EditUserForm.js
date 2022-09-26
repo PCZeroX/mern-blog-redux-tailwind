@@ -12,6 +12,8 @@ import {
 	useDeleteUserMutation,
 } from "../../../features/users/usersApiSlice";
 
+import useTitle from "../../../hooks/useTitle";
+
 import { ROLES } from "../../../config/roles";
 
 const USERNAME_REGEX = /^[A-z]{3,20}$/;
@@ -36,6 +38,8 @@ const EditUserForm = ({ user }) => {
 			error: deleteError,
 		},
 	] = useDeleteUserMutation();
+
+	useTitle(`Edit User ${user.username}`);
 
 	const navigate = useNavigate();
 
@@ -123,10 +127,10 @@ const EditUserForm = ({ user }) => {
 			[roles.length, validUsername, validPassword].every(
 				Boolean
 			) && !isLoading;
-	// else
-	// 	canSave =
-	// 		[roles.length, validUsername].every(Boolean) &&
-	// 		!isLoading;
+	else
+		canSave =
+			[roles.length, validUsername].every(Boolean) &&
+			!isLoading;
 
 	const errClass =
 		isUpdateError || isDeleteError

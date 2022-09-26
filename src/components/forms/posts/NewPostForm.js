@@ -6,6 +6,8 @@ import {
 	faSave,
 } from "@fortawesome/free-solid-svg-icons";
 
+import useTitle from "../../../hooks/useTitle";
+
 import { useAddNewPostMutation } from "../../../features/posts/postsApiSlice";
 
 const NewPostForm = ({ users }) => {
@@ -13,6 +15,8 @@ const NewPostForm = ({ users }) => {
 		addNewPost,
 		{ isLoading, isSuccess, isError, error },
 	] = useAddNewPostMutation();
+
+	useTitle("New Post");
 
 	const navigate = useNavigate();
 

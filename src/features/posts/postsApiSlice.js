@@ -6,11 +6,12 @@ import {
 import { apiSlice } from "../../app/api/apiSlice";
 
 const postsAdapter = createEntityAdapter({
-	sortComparer: (a, b) => a.isCompleted === b.isCompleted
-		? 0
-		: a.isCompleted
+	sortComparer: (a, b) =>
+		a.isCompleted === b.isCompleted
+			? 0
+			: a.isCompleted
 			? 1
-			: -1
+			: -1,
 });
 
 const initialState = postsAdapter.getInitialState();
@@ -18,10 +19,13 @@ const initialState = postsAdapter.getInitialState();
 export const postsApiSlice = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		getPosts: builder.query({
-			query: () => "/posts",
-			validateStatus: (response, result) => {
-				return response.status === 200 && !result.isError;
-			},
+			query: () => ({
+				url: "/posts",
+				validateStatus: (response, result) => {
+					return response.status === 200 && !result.isError;
+				},
+			}),
+
 			transformResponse: (responseData) => {
 				const loadedPosts = responseData.map((post) => {
 					post.id = post._id;

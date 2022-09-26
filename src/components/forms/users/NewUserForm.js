@@ -8,6 +8,8 @@ import {
 
 import { useAddNewUserMutation } from "../../../features/users/usersApiSlice";
 
+import useTitle from "../../../hooks/useTitle";
+
 import { ROLES } from "../../../config/roles";
 
 const USERNAME_REGEX = /^[A-z]{3,20}$/;
@@ -18,6 +20,8 @@ const NewUserForm = () => {
 		addNewUser,
 		{ isLoading, isSuccess, isError, error },
 	] = useAddNewUserMutation();
+
+	useTitle("New User");
 
 	const navigate = useNavigate();
 

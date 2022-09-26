@@ -20,8 +20,11 @@ import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from "./features/auth/RequireAuth";
 
 import { ROLES } from "./config/roles";
+import useTitle from "./hooks/useTitle";
 
 function App() {
+	useTitle("React + Redux 🦄");
+
 	return (
 		<Routes>
 			<Route path="/" element={<Layout />}>
@@ -29,17 +32,35 @@ function App() {
 				<Route path="login" element={<Login />} />
 
 				<Route element={<PersistLogin />}>
-					<Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
+					<Route
+						element={
+							<RequireAuth
+								allowedRoles={[...Object.values(ROLES)]}
+							/>
+						}
+					>
 						<Route element={<Prefetch />}>
 							<Route path="profile">
 								<Route index element={<Welcome />} />
 							</Route>
 
-							<Route element={<RequireAuth allowedRoles={[ROLES.Manager, ROLES.Admin]} />}>
+							<Route
+								element={
+									<RequireAuth
+										allowedRoles={[
+											ROLES.Manager,
+											ROLES.Admin,
+										]}
+									/>
+								}
+							>
 								<Route path="users">
 									<Route index element={<UsersList />} />
 									<Route path="new" element={<NewUser />} />
-									<Route path=":id" element={<EditUser />} />
+									<Route
+										path=":id"
+										element={<EditUser />}
+									/>
 								</Route>
 							</Route>
 

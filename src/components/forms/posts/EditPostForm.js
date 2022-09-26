@@ -11,6 +11,7 @@ import {
 	useUpdatePostMutation,
 } from "../../../features/posts/postsApiSlice";
 import useAuth from "../../../hooks/useAuth";
+import useTitle from "../../../hooks/useTitle";
 
 const EditPostForm = ({ post, users }) => {
 	const [
@@ -31,6 +32,8 @@ const EditPostForm = ({ post, users }) => {
 			error: deleteError,
 		},
 	] = useDeletePostMutation();
+
+	useTitle(`${post.ticket} - ${post.id}`);
 
 	const { isManager, isAdmin } = useAuth();
 

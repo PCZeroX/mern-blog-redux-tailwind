@@ -1,16 +1,18 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { memo } from "react";
 
-import { useSelector } from "react-redux";
-import { selectUserById } from "../../features/users/usersApiSlice";
+import { useGetUsersQuery } from "../../features/users/usersApiSlice";
 
 const User = ({ userId }) => {
 	const navigate = useNavigate();
 
-	const user = useSelector((state) =>
-		selectUserById(state, userId)
-	);
+	const { user } = useGetUsersQuery("usersList", {
+		selectFromResult: ({ data }) => ({
+			user: data?.entities[userId],
+		}),
+	});
 
 	if (user) {
 		const handleEdit = () => navigate(`/users/${userId}`);
@@ -19,7 +21,7 @@ const User = ({ userId }) => {
 			.toString()
 			.replaceAll(",", ", ");
 
-		const cellStatus = user.active ? "" : "bg-red-700";
+		const cellStatus = user.active ? "" : "bg-red-900/50";
 
 		return (
 			<tr className="text-center">
@@ -53,4 +55,6 @@ const User = ({ userId }) => {
 	}
 };
 
-export default User;
+const memoizedUser = memo(User);
+
+export default memoizedUser;

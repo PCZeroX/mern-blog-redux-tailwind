@@ -2,15 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-import { useSelector } from "react-redux";
-import { selectPostById } from "../../features/posts/postsApiSlice";
+import { useGetPostsQuery } from "../../features/posts/postsApiSlice";
+import { memo } from "react";
 
 const Post = ({ postId }) => {
 	const navigate = useNavigate();
 
-	const post = useSelector((state) =>
-		selectPostById(state, postId)
-	);
+	const { post } = useGetPostsQuery("postsList", {
+		selectFromResult: ({ data }) => ({
+			post: data?.entities[postId],
+		}),
+	});
 
 	if (post) {
 		const created = new Date(post.createdAt).toLocaleString(
@@ -65,4 +67,6 @@ const Post = ({ postId }) => {
 	}
 };
 
-export default Post;
+const memoizedPost = memo(Post);
+
+export default memoizedPost;

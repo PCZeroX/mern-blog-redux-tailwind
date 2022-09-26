@@ -6,17 +6,17 @@ import { usersApiSlice } from "../users/usersApiSlice";
 
 const Prefetch = () => {
 	useEffect(() => {
-		const users = store.dispatch(
-			usersApiSlice.endpoints.getUsers.initiate()
-		);
-		const posts = store.dispatch(
-			postsApiSlice.endpoints.getPosts.initiate()
+		store.dispatch(
+			postsApiSlice.util.prefetch("getPosts", "postsList", {
+				force: true,
+			})
 		);
 
-		return () => {
-			users.unsubscribe();
-			posts.unsubscribe();
-		};
+		store.dispatch(
+			usersApiSlice.util.prefetch("getUsers", "usersList", {
+				force: true,
+			})
+		);
 	}, []);
 
 	return <Outlet />;

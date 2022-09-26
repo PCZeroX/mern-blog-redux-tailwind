@@ -1,5 +1,8 @@
 import { RingLoader as Loader } from "react-spinners";
 import { useGetUsersQuery } from "../../features/users/usersApiSlice";
+import useAuth from "../../hooks/useAuth";
+
+import useTitle from "../../hooks/useTitle";
 
 import User from "./User";
 
@@ -15,6 +18,9 @@ const UsersList = () => {
 		refetchOnFocus: true,
 		refetchOnMountOrArgChange: true,
 	});
+
+	const { username } = useAuth();
+	useTitle(`Users List | ${username}`);
 
 	let content;
 
@@ -37,8 +43,6 @@ const UsersList = () => {
 
 	if (isSuccess) {
 		const { ids } = users;
-
-		// const tableContent = ids?.length ? ids.map((userId) => <User key={ userId } userId={ userId } />) : null;
 
 		const tableContent =
 			ids?.length &&
