@@ -4,9 +4,16 @@ import { useNavigate } from "react-router-dom";
 import { memo } from "react";
 
 import { useGetUsersQuery } from "../../features/users/usersApiSlice";
+import { useSelector } from "react-redux";
+import { selectCurrentToken } from "../../features/auth/authSlice";
+import jwtDecode from "jwt-decode";
 
 const User = ({ userId }) => {
 	const navigate = useNavigate();
+	const token = useSelector(selectCurrentToken);
+
+	const decoded = jwtDecode(token);
+	const { username } = decoded.UserInfo;
 
 	const { user } = useGetUsersQuery("usersList", {
 		selectFromResult: ({ data }) => ({
@@ -21,7 +28,11 @@ const User = ({ userId }) => {
 			.toString()
 			.replaceAll(",", ", ");
 
-		const cellStatus = user.active ? "" : "bg-red-900/50";
+		const cellStatus = user.active
+			? user.username === username
+				? "bg-green-500/20"
+				: ""
+			: "bg-red-900/50";
 
 		return (
 			<tr className="text-center">

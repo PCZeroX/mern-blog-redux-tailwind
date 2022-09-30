@@ -1,5 +1,9 @@
 import { useEffect } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import {
+	useNavigate,
+	Link,
+	useLocation,
+} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faRightFromBracket,
@@ -7,7 +11,8 @@ import {
 	faFilePen,
 	faUserGear,
 	faUserPlus,
-	faHome,
+	faBlog,
+	faIdCard,
 } from "@fortawesome/free-solid-svg-icons";
 import { BeatLoader as Loader } from "react-spinners";
 
@@ -24,13 +29,15 @@ const Header = () => {
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
 
-	const [logout, { isLoading, isSuccess, isError, error }] = useLogoutMutation();
+	const [logout, { isLoading, isSuccess, isError, error }] =
+		useLogoutMutation();
 
 	useEffect(() => {
 		if (isSuccess) navigate("/");
 	}, [isSuccess, navigate]);
 
 	const onGoHomeClicked = () => navigate("/profile");
+	const onGoBlogClicked = () => navigate("/blog");
 	const onNewPostClicked = () => navigate("/posts/new");
 	const onNewUserClicked = () => navigate("/users/new");
 	const onPostsClicked = () => navigate("/posts");
@@ -39,8 +46,31 @@ const Header = () => {
 	let goHomeButton = null;
 	if (pathname !== "/profile") {
 		goHomeButton = (
-			<button className="flex items-center" title="Profile" onClick={onGoHomeClicked}>
-				<FontAwesomeIcon className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500" icon={faHome} />
+			<button
+				className="flex items-center"
+				title="Profile"
+				onClick={onGoHomeClicked}
+			>
+				<FontAwesomeIcon
+					className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+					icon={faIdCard}
+				/>
+			</button>
+		);
+	}
+
+	let goBlogButton = null;
+	if (pathname !== "/blog") {
+		goBlogButton = (
+			<button
+				className="flex items-center"
+				title="Blog"
+				onClick={onGoBlogClicked}
+			>
+				<FontAwesomeIcon
+					className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+					icon={faBlog}
+				/>
 			</button>
 		);
 	}
@@ -48,8 +78,15 @@ const Header = () => {
 	let newPostButton = null;
 	if (POSTS_REGEX.test(pathname)) {
 		newPostButton = (
-			<button className="flex items-center" title="New Post" onClick={onNewPostClicked}>
-				<FontAwesomeIcon className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500" icon={faFileCirclePlus} />
+			<button
+				className="flex items-center"
+				title="New Post"
+				onClick={onNewPostClicked}
+			>
+				<FontAwesomeIcon
+					className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+					icon={faFileCirclePlus}
+				/>
 			</button>
 		);
 	}
@@ -57,33 +94,67 @@ const Header = () => {
 	let newUserButton = null;
 	if (USERS_REGEX.test(pathname)) {
 		newUserButton = (
-			<button className="flex items-center" title="New User" onClick={onNewUserClicked}>
-				<FontAwesomeIcon className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500" icon={faUserPlus} />
+			<button
+				className="flex items-center"
+				title="New User"
+				onClick={onNewUserClicked}
+			>
+				<FontAwesomeIcon
+					className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+					icon={faUserPlus}
+				/>
 			</button>
 		);
 	}
 
 	let usersButton = null;
-	if (!USERS_REGEX.test(pathname) && pathname.includes("/")) {
+	if (
+		!USERS_REGEX.test(pathname) &&
+		pathname.includes("/")
+	) {
 		usersButton = (
-			<button className="flex items-center" title="Users" onClick={onUsersClicked}>
-				<FontAwesomeIcon className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500" icon={faUserGear} />
+			<button
+				className="flex items-center"
+				title="Users"
+				onClick={onUsersClicked}
+			>
+				<FontAwesomeIcon
+					className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+					icon={faUserGear}
+				/>
 			</button>
 		);
 	}
 
 	let postsButton = null;
-	if (!POSTS_REGEX.test(pathname) && pathname.includes("/")) {
+	if (
+		!POSTS_REGEX.test(pathname) &&
+		pathname.includes("/")
+	) {
 		postsButton = (
-			<button className="flex items-center" title="Posts" onClick={onPostsClicked}>
-				<FontAwesomeIcon className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500" icon={faFilePen} />
+			<button
+				className="flex items-center"
+				title="Posts"
+				onClick={onPostsClicked}
+			>
+				<FontAwesomeIcon
+					className="w-6 h-6 duration-500 hover:scale-125 hover:text-cyan-500"
+					icon={faFilePen}
+				/>
 			</button>
 		);
 	}
 
 	const logoutButton = (
-		<button className="flex items-center" title="Logout" onClick={logout}>
-			<FontAwesomeIcon className="w-6 h-6 duration-500 hover:scale-125 hover:text-red-500" icon={faRightFromBracket} />
+		<button
+			className="flex items-center"
+			title="Logout"
+			onClick={logout}
+		>
+			<FontAwesomeIcon
+				className="w-6 h-6 duration-500 hover:scale-125 hover:text-red-500"
+				icon={faRightFromBracket}
+			/>
 		</button>
 	);
 
@@ -98,9 +169,13 @@ const Header = () => {
 		buttonContent = (
 			<>
 				{goHomeButton}
+				{goBlogButton}
 				{newPostButton}
 				{postsButton}
-				{(isAdmin || isManager) && { ...usersButton, ...newUserButton }}
+				{(isAdmin || isManager) && {
+					...usersButton,
+					...newUserButton,
+				}}
 				{logoutButton}
 			</>
 		);
@@ -115,17 +190,36 @@ const Header = () => {
 			) : null}
 
 			<div className="max-w-7xl mx-auto">
-				<nav className={`flex justify-between items-center h-14 mx-4 xl:mx-0`}>
+				<nav
+					className={`flex justify-between items-center h-14 mx-4 xl:mx-0`}
+				>
 					<Link to="/">
-						<img src="/img/react.svg" alt="React" className="h-8" />
+						<img
+							src="/img/react.svg"
+							alt="React"
+							className="h-8"
+						/>
 					</Link>
 
 					{username ? (
-						<div className="flex gap-8">{buttonContent}</div>
+						<div className="flex gap-8">
+							{buttonContent}
+						</div>
 					) : (
 						<ul className="flex gap-4">
 							<li>
-								<Link className="hover:text-cyan-400 duration-300" to="/login">
+								<Link
+									className="hover:text-cyan-400 duration-300"
+									to="/blog"
+								>
+									Blog
+								</Link>
+							</li>
+							<li>
+								<Link
+									className="hover:text-cyan-400 duration-300"
+									to="/login"
+								>
 									Sign In
 								</Link>
 							</li>
@@ -133,7 +227,11 @@ const Header = () => {
 					)}
 
 					<Link to="/">
-						<img src="/img/Redux.svg" alt="Redux" className="h-8" />
+						<img
+							src="/img/Redux.svg"
+							alt="Redux"
+							className="h-8"
+						/>
 					</Link>
 				</nav>
 			</div>

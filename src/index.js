@@ -3,11 +3,22 @@ import ReactDOM from "react-dom/client";
 import "./styles/tailwind.css";
 import App from "./App";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+	BrowserRouter,
+	Route,
+	Routes,
+} from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import { disableReactDevTools } from "@fvilers/disable-react-devtools";
+
+if (process.env.NODE_ENV === "production")
+	disableReactDevTools();
+
+const root = ReactDOM.createRoot(
+	document.getElementById("root")
+);
 root.render(
 	<React.StrictMode>
 		<Provider store={store}>

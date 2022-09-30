@@ -22,6 +22,9 @@ import RequireAuth from "./features/auth/RequireAuth";
 import { ROLES } from "./config/roles";
 import useTitle from "./hooks/useTitle";
 
+import Blog from "./pages/blog/Blog";
+import SinglePost from "./pages/blog/SinglePost";
+
 function App() {
 	useTitle("React + Redux 🦄");
 
@@ -30,6 +33,11 @@ function App() {
 			<Route path="/" element={<Layout />}>
 				<Route index element={<Home />} />
 				<Route path="login" element={<Login />} />
+
+				<Route path="blog">
+					<Route index element={<Blog />} />
+					<Route path="post/:id" element={<SinglePost />} />
+				</Route>
 
 				<Route element={<PersistLogin />}>
 					<Route
