@@ -228,7 +228,7 @@ const Header = () => {
 
 					<Link to="/">
 						<img
-							src="/img/Redux.svg"
+							src="/img/redux.svg"
 							alt="Redux"
 							className="h-8"
 						/>
